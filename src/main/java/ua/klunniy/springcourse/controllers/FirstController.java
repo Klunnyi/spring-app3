@@ -5,16 +5,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("new")
-public class HelloController {
+@RequestMapping("first")
+public class FirstController {
 
     @GetMapping("hello")
     public String helloPage(){
-        return "hello_world";
+        return "first/hello_world";
     }
 
     @GetMapping("goodbye")
     public String goodByePage() {
-        return "good_by_page";
+        return "first/good_by_page";
     }
 }
