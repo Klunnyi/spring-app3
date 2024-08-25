@@ -9,10 +9,11 @@ import lombok.experimental.FieldDefaults;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class People {
 
-    Integer id;
-    String name;
+    private Integer id;
+    private String name;
+    private Integer age;
+    private String email;
 
 }
