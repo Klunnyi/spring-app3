@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@RequestMapping("first")
+@RequestMapping("/first")
 public class FirstController {
 
-    @GetMapping("hello")
+    @GetMapping("/hello")
     public String helloPage(HttpServletRequest request, Model model) {
         final String name = request.getParameter("name");
         final String surname = request.getParameter("surname");
@@ -24,7 +24,7 @@ public class FirstController {
         return "first/hello_world";
     }
 
-    @GetMapping("goodbye")
+    @GetMapping("/goodbye")
     public String goodByePage(@RequestParam(value = "name", defaultValue = "test-1") String name,
                               @RequestParam(value = "surname", required = false) String surname,
                               Model model) {

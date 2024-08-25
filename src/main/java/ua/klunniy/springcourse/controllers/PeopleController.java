@@ -18,12 +18,14 @@ import ua.klunniy.springcourse.service.PeopleService;
 
 import java.util.List;
 
-@Controller
-@RequestMapping("/people")
 //@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 //@RequiredArgsConstructor
+
+
+@Controller
 @NoArgsConstructor
 @AllArgsConstructor
+@RequestMapping("/people")
 public class PeopleController {
 
     @Autowired

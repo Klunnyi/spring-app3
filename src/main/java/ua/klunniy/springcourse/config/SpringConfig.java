@@ -24,30 +24,20 @@ import java.sql.SQLException;
 import static javax.servlet.SessionTrackingMode.URL;
 import static org.postgresql.shaded.com.ongres.scram.common.ScramAttributes.USERNAME;
 
-@PropertySource({"classpath:database.properties",
-        "classpath:hibernate.properties",
-        "classpath:property.properties"})
+//@EnableJpaRepositories("ua.klunniy.springcourse.repository")
+//@EnableTransactionManagement
+// Это конфигурация нашего спринг приложения вместо applicationContext.xml
+
+//@PropertySource({"classpath:database.properties",
+//        "classpath:hibernate.properties",
+
+
 @Configuration
 @ComponentScan("ua.klunniy.springcourse")
 @EnableWebMvc
-//@EnableJpaRepositories("ua.klunniy.springcourse.repository")
-//@EnableTransactionManagement
 public class SpringConfig implements WebMvcConfigurer {
 
     private final ApplicationContext applicationContext;
-
-    @Value("{$url}")
-    private String url;
-
-    @Value("{$username}")
-    private String username;
-
-    @Value("{$password}")
-    private String password;
-
-    @Value("{$driver}")
-    private String driver;
-
 
     @Autowired
     public SpringConfig(ApplicationContext applicationContext) {
@@ -62,24 +52,6 @@ public class SpringConfig implements WebMvcConfigurer {
         templateResolver.setSuffix(".html");
         return templateResolver;
     }
-
-//    @Bean
-//    public Connection dataSource() {
-//        try{
-//            Class.forName(driver);
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//
-//        Connection connection = null;
-//        try {
-//            connection = DriverManager.getConnection(url, username, password);
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return connection;
-//    }
-
 
     @Bean
     public SpringTemplateEngine templateEngine() {
