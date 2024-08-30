@@ -17,25 +17,25 @@ import java.util.List;
 @NoArgsConstructor
 public class PeopleService {
 //
-//    private static final String URL = "jdbc:postgresql://localhost:8080/security_app_db";
-//    private static final String USERNAME = "postgres";
-//    private static final String PASSWORD = "870EVO";
-//
-//    static Connection connection;
-//
-//    static {
-//        try{
-//            Class.forName("org.postgresql.Driver");
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//
-//        try {
-//            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    private static final String URL = "jdbc:postgresql://localhost:5432/security_app_db";
+    private static final String USERNAME = "postgres";
+    private static final String PASSWORD = "870EVO";
+
+    private static Connection connection;
+
+    static {
+        try{
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 //    @Autowired
 //    private PeopleRepository peopleRepository;
 
@@ -54,26 +54,26 @@ public class PeopleService {
 
     public List<People> getPeople() {
 
-//        List<People> peopleList = new ArrayList<>();
-//
-//        try {
-//            // Это тот обьект который содержит в себе sql запрос к БД
-//            Statement statement = connection.createStatement();
-//            String query = "SELECT * FROM Person";
-//
-//            // ResultSet - это обьект который инкапсулирует в себе результат выполнения запроса к БД
-//            ResultSet resultSet = statement.executeQuery(query);
-//            while (resultSet.next()) {
-//                People people = new People();
-//                people.setId(resultSet.getInt("id"));
-//                people.setName(resultSet.getString("username"));
-//                peopleList.add(people);
-//            }
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
+        List<People> peopleList = new ArrayList<>();
 
-        return null;
+        try {
+            // Это тот обьект который содержит в себе sql запрос к БД
+            Statement statement = connection.createStatement();
+            String query = "SELECT * FROM Person";
+
+            // ResultSet - это обьект который инкапсулирует в себе результат выполнения запроса к БД
+            ResultSet resultSet = statement.executeQuery(query);
+            while (resultSet.next()) {
+                People people = new People();
+                people.setId(resultSet.getInt("id"));
+                people.setName(resultSet.getString("username"));
+                peopleList.add(people);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return peopleList;
     }
 
     public People getPeopleById(Long id) {
