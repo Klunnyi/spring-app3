@@ -37,4 +37,11 @@ build/
 
 ### Mac OS ###
 .DS_Store
-.dea
+.idea
+/out/*
+/.idea/*
+
+
+
+
+
