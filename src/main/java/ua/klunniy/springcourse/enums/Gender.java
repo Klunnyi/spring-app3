@@ -1,8 +1,8 @@
-package ua.klunniy.springcourse.gender;
-
-/**
- * @author Serhii Klunniy
- */
-public enum Gender {
-    MALE, FEMALE
-}
+//package ua.klunniy.springcourse.enums;
+//
+///**
+// * @author Serhii Klunniy
+// */
+//public enum Gender {
+//    MALE, FEMALE
+//}
