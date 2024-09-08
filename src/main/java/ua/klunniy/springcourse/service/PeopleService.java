@@ -1,6 +1,6 @@
 package ua.klunniy.springcourse.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ua.klunniy.springcourse.dao.PersonDAO;
 import ua.klunniy.springcourse.models.Person;
@@ -8,10 +8,10 @@ import ua.klunniy.springcourse.models.Person;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class PeopleService {
 
-    @Autowired
-    private PersonDAO personDAO;
+    private final PersonDAO personDAO;
 
     public List<Person> getPeople() {
         return personDAO.getPersonList();
@@ -19,5 +19,23 @@ public class PeopleService {
 
     public Person getPersonById(Long id) {
         return personDAO.getPersonById(id);
+    }
+
+    public void save(Person person) {
+        if (person.getName() == null || person.getName().isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be null");
+        }
+        personDAO.add(person);
+    }
+
+    public void update(long id, Person person) {
+        Person personToBeUpdated = personDAO.getPersonById(id);
+        if (personToBeUpdated != null) {
+            personToBeUpdated.setName(person.getName());
+        }
+    }
+
+    public void delete(long id) {
+        personDAO.delete(id);
     }
 }

@@ -31,4 +31,13 @@ public class PersonDAO {
 
         return personList.stream().filter(person -> person.getId() == id).findFirst().orElseThrow(IllegalArgumentException::new);
     }
+
+    public void add(Person person) {
+        person.setId(PEOPLE_COUNT++);
+        personList.add(person);
+    }
+
+    public void delete(Long id) {
+        personList.removeIf(person -> person.getId() == id);
+    }
 }

@@ -3,15 +3,14 @@ package ua.klunniy.springcourse.controllers;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import ua.klunniy.springcourse.dao.PersonDAO;
+import ua.klunniy.springcourse.models.Person;
 import ua.klunniy.springcourse.service.PeopleService;
 
 import java.util.List;
@@ -21,8 +20,7 @@ import java.util.List;
 
 
 @Controller
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/people")
 public class PeopleController {
 
@@ -42,8 +40,8 @@ public class PeopleController {
      *   PATCH   /posts/:id          Обновляем запись(UPDATE)
      *
      * */
-    @Autowired
-    private PeopleService peopleService;
+
+    private final PeopleService peopleService;
 
     // index
     @GetMapping()
@@ -55,7 +53,7 @@ public class PeopleController {
     // show
     @GetMapping("/{id}")
     public String getOnePeopleThymeleaf(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("people", peopleService.getPersonById(id));
+        model.addAttribute("person", peopleService.getPersonById(id));
         return "people/one";
     }
 
@@ -69,17 +67,35 @@ public class PeopleController {
 //        return  peopleService.getPeopleById(id);
 //    }
 //
-//    // метод будет возвращать html форму для создания нового человека
-//    @GetMapping("/new")
-//    public String newPerson(Model model) {
-//        model.addAttribute("people", new People());
-//        return "people/new";
-//    }
-//
-//    // будет принимать пост запрос, будет брать данные из этого пост запроса и
-//    @PostMapping
-//    public String savePerson(@ModelAttribute("people") People people) {
-//        peopleService.save(people);
-//        return "redirect:/people";
-//    }
+    // метод будет возвращать html форму для создания нового человека
+    @GetMapping("/new")
+    public String newPerson(@ModelAttribute("person") Person person) {
+        return "people/new";
+    }
+
+    // будет принимать пост запрос, будет брать данные из этого пост запроса и
+    @PostMapping
+    public String save(@ModelAttribute("person") Person person) {
+        peopleService.save(person);
+        return "redirect:/people";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable("id") Long id, Model model ) {
+        model.addAttribute("person", peopleService.getPersonById(id));
+        return "people/edit";
+    }
+
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("person") Person person, @PathVariable("id") Long id) {
+        peopleService.update(id, person);
+        //return "people/all";
+        return "redirect:/people";
+    }
+
+    @DeleteMapping("{id}")
+    public String delete(@PathVariable("id") Long id) {
+        peopleService.delete(id);
+        return "redirect:/people";
+    }
 }

@@ -3,15 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>One People</title>
+    <script>
+        function deletePerson(id) {
+            if (confirm('Are you sure you want to delete this person?')) {
+                fetch('/people/' + id, {
+                    method: 'DELETE'
+                }).then(response => {
+                    if (response.ok) {
+                        alert('Person deleted successfully!');
+                        window.location.href = '/people';
+                    } else {
+                        alert('Failed to delete person!');
+                    }
+                });
+            }
+        }
+    </script>
 </head>
 <body>
 
-<!--    <div th:each="person : ${people}">-->
-<!--        <a th:href="@{/people/{id}(id=${person.getId()})}" th:text="${person.getName()}">user</a>-->
-<!--    </div>-->
+<p th:text="${person.getId()}">VALUE</p>
+<p th:text="${person.getName()}">VALUE</p>
 
-    <p th:text="${people.getName}">VALUE</p>
-    <p th:text="${people.getId}">VALUE</p>
+<a th:href="@{/people/{id}/edit(id=${person.getId()})}">Edit person</a>
+<!--<button th:attr="onclick='deletePerson(' + ${person.getId()} + ')'">Delete person</button>-->
+
+<form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
+    <input type="submit" value="Delete"/>
+</form>
 
 </body>
 </html>
