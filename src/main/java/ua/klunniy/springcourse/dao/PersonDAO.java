@@ -1,29 +1,34 @@
 package ua.klunniy.springcourse.dao;
 
+import lombok.Getter;
 import org.springframework.stereotype.Component;
 import ua.klunniy.springcourse.models.Person;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 @Component
 public class PersonDAO {
 
-    List<Person> personList = new ArrayList<>(){{
-        add(new Person(1, "Serhii"));
-        add(new Person(2, "Solomiya"));
+    private static int PEOPLE_COUNT;
+
+    private final List<Person> personList = new ArrayList<>() {{
+        add(new Person(PEOPLE_COUNT++, "Serhii"));
+        add(new Person(PEOPLE_COUNT++, "Solomiya"));
+        add(new Person(PEOPLE_COUNT++, "Tom"));
+        add(new Person(PEOPLE_COUNT++, "Bob"));
+        add(new Person(PEOPLE_COUNT++, "Katy"));
     }};
 
-    public List<Person> getPersonList() {
-        return personList;
-    }
-
     public Person getPersonById(long id) {
-        for (Person person : personList) {
-            if (person.getId() == id) {
-                return person;
-            }
-        }
-        throw new IllegalArgumentException("Person with id " + id + " not found");
+//        for (Person person : personList) {
+//            if (person.getId() == id) {
+//                return person;
+//            }
+//        }
+//        throw new IllegalArgumentException("Person with id " + id + " not found");
+
+        return personList.stream().filter(person -> person.getId() == id).findFirst().orElseThrow(IllegalArgumentException::new);
     }
 }
