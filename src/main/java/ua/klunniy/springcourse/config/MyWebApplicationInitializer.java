@@ -18,7 +18,7 @@ import java.util.EnumSet;
 public class MyWebApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return  new Class[0];
+        return new Class[0];
     }
 
     @Override
