@@ -1,11 +1,7 @@
 package ua.klunniy.springcourse.controllers;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,12 +12,10 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ua.klunniy.springcourse.dao.PersonDAO;
 import ua.klunniy.springcourse.models.Person;
 import ua.klunniy.springcourse.service.PeopleService;
 
 import javax.validation.Valid;
-import java.util.List;
 
 //@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 //@RequiredArgsConstructor
