@@ -30,9 +30,11 @@ public class PeopleService {
 
     public void update(long id, Person person) {
         Person personToBeUpdated = personDAO.getPersonById(id);
-        if (personToBeUpdated != null) {
-            personToBeUpdated.setName(person.getName());
-        }
+
+        personToBeUpdated.setName(person.getName());
+        personToBeUpdated.setAge(person.getAge());
+        personToBeUpdated.setEmail(person.getEmail());
+
     }
 
     public void delete(long id) {

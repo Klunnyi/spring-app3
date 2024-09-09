@@ -14,11 +14,11 @@ public class PersonDAO {
     private static int PEOPLE_COUNT;
 
     private final List<Person> personList = new ArrayList<>() {{
-        add(new Person(PEOPLE_COUNT++, "Serhii"));
-        add(new Person(PEOPLE_COUNT++, "Solomiya"));
-        add(new Person(PEOPLE_COUNT++, "Tom"));
-        add(new Person(PEOPLE_COUNT++, "Bob"));
-        add(new Person(PEOPLE_COUNT++, "Katy"));
+        add(new Person(PEOPLE_COUNT++, "Serhii", 10, "serhii@gmail.com"));
+        add(new Person(PEOPLE_COUNT++, "Solomiya", 20, "solomiya@gmail.com"));
+        add(new Person(PEOPLE_COUNT++, "Tom", 30, "tom@gmail.com"));
+        add(new Person(PEOPLE_COUNT++, "Bob", 40, "bob@gmail.com"));
+        add(new Person(PEOPLE_COUNT++, "Katy", 50, "katy@gmail.com"));
     }};
 
     public Person getPersonById(long id) {

@@ -8,11 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import ua.klunniy.springcourse.dao.PersonDAO;
 import ua.klunniy.springcourse.models.Person;
 import ua.klunniy.springcourse.service.PeopleService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 //@RequiredArgsConstructor(onConstructor_ = {@Autowired})
@@ -33,8 +41,8 @@ public class PeopleController {
      *   GET     /posts/:id          Получаем одну запись(READ)
      *   DELETE  /posts/:id          Удаляем запись(DELETE)
      *
-     *   GET     /posts/new           HTML форма создания записи
-     *   POST    /posts               Создаем новую запись(CREATE)
+     *   GET     /posts/new          HTML форма создания записи
+     *   POST    /posts              Создаем новую запись(CREATE)
      *
      *   GET     /posts/:id/edit     HTML форма редактирования записи
      *   PATCH   /posts/:id          Обновляем запись(UPDATE)
@@ -57,7 +65,7 @@ public class PeopleController {
         return "people/one";
     }
 
-//    @GetMapping(value = "json", produces = MediaType.APPLICATION_JSON_VALUE)
+    //    @GetMapping(value = "json", produces = MediaType.APPLICATION_JSON_VALUE)
 //    public List<People> getPeoplesJson() {
 //        return peopleService.getPeople();
 //    }
@@ -75,19 +83,30 @@ public class PeopleController {
 
     // будет принимать пост запрос, будет брать данные из этого пост запроса и
     @PostMapping
-    public String save(@ModelAttribute("person") Person person) {
+    public String create(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "people/new";
+        }
+
         peopleService.save(person);
         return "redirect:/people";
     }
 
     @GetMapping("/{id}/edit")
-    public String edit(@PathVariable("id") Long id, Model model ) {
+    public String edit(@PathVariable("id") Long id, Model model) {
         model.addAttribute("person", peopleService.getPersonById(id));
         return "people/edit";
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("person") Person person, @PathVariable("id") Long id) {
+    public String update(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult,
+                         @PathVariable("id") Long id) {
+
+        if (bindingResult.hasErrors()) {
+            return "people/edit";
+        }
+
         peopleService.update(id, person);
         //return "people/all";
         return "redirect:/people";
