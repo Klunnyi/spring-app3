@@ -2,6 +2,7 @@ package ua.klunniy.springcourse.dao.jdbc;
 
 import lombok.Getter;
 import org.springframework.stereotype.Component;
+import ua.klunniy.springcourse.dao.PersonDAO;
 import ua.klunniy.springcourse.models.Person;
 
 import java.sql.*;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @Getter
 @Component
-public class PersonDAO {
+public class JdbcPersonDAO implements PersonDAO {
 
     private static final String URL = "jdbc:postgresql://localhost:5432/first_db";
     private static final String USERNAME = "postgres";
@@ -32,7 +33,7 @@ public class PersonDAO {
        }
    }
 
-    public List<Person> getPersonList() {
+    public List<Person> index() {
         // return jdbcTemplate.query("SELECT * FROM Person ORDER BY id", new PersonMapper());
 
         List<Person> personList = new ArrayList<>();
@@ -120,7 +121,7 @@ public class PersonDAO {
 //        return null;
 //    }
 
-    public Person getPersonById(long id) {
+    public Person show(Long id) {
         // SQL-запрос для получения данных человека по ID
         String sql = "SELECT * FROM Person WHERE id = ?";
 
@@ -153,10 +154,7 @@ public class PersonDAO {
         }
     }
 
-
-
     public void delete(Long id) {
-        //personList.removeIf(person -> person.getId() == id);
         String sql = "DELETE FROM Person WHERE id = ?";
         PreparedStatement pstmt = null;
         try {
@@ -168,10 +166,5 @@ public class PersonDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-        // Установка параметров запроса
-
-
-
     }
 }

@@ -1,24 +1,28 @@
 package ua.klunniy.springcourse.service;
 
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import ua.klunniy.springcourse.dao.jdbc.PersonDAO;
+import ua.klunniy.springcourse.dao.PersonDAO;
 import ua.klunniy.springcourse.models.Person;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class PeopleService {
 
     private final PersonDAO personDAO;
 
+    public PeopleService(@Qualifier("jdbcTemplatePersonDAO") PersonDAO personDAO) {
+        this.personDAO = personDAO;
+    }
+
     public List<Person> getPeople() {
-        return personDAO.getPersonList();
+        return personDAO.index();
     }
 
     public Person getPersonById(Long id) {
-        return personDAO.getPersonById(id);
+        return personDAO.show(id);
     }
 
     public void save(Person person) {

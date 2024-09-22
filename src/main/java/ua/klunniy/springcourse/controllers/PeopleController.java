@@ -76,9 +76,9 @@ public class PeopleController {
     }
 
     // будет принимать пост запрос, будет брать данные из этого пост запроса и
+    // @ModelAttribute создает обьект пустого человека, помещает в него данные из формы и кладет его в модель
     @PostMapping
     public String create(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
-
         if (bindingResult.hasErrors()) {
             return "people/new";
         }
@@ -86,6 +86,12 @@ public class PeopleController {
         peopleService.save(person);
         return "redirect:/people";
     }
+
+//    @PostMapping
+//    public String create(@ModelAttribute("person") @Valid Person person) {
+//        peopleService.save(person);
+//        return "redirect:/people";
+//    }
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable("id") Long id, Model model) {
