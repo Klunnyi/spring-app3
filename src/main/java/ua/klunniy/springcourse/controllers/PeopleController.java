@@ -77,6 +77,7 @@ public class PeopleController {
 
     // будет принимать пост запрос, будет брать данные из этого пост запроса и
     // @ModelAttribute создает обьект пустого человека, помещает в него данные из формы и кладет его в модель
+    // MethodArgumentNotValidException
     @PostMapping
     public String create(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
