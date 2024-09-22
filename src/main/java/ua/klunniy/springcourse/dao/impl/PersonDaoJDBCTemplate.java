@@ -1,7 +1,8 @@
-package ua.klunniy.springcourse.dao.jdbcTemplate;
+package ua.klunniy.springcourse.dao.impl;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -14,7 +15,7 @@ import java.util.List;
 @Getter
 @Component
 @RequiredArgsConstructor
-public class JdbcTemplatePersonDAO implements PersonDAO {
+public class PersonDaoJDBCTemplate implements PersonDAO {
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -39,5 +40,11 @@ public class JdbcTemplatePersonDAO implements PersonDAO {
 
     public void delete(Long id) {
         jdbcTemplate.update("DELETE FROM Person WHERE id = ?", id);
+    }
+
+    public void add100People(List<Person> people) {
+        for (Person person : people) {
+            this.save(person);
+        }
     }
 }

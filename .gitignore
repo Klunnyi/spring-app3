@@ -40,7 +40,7 @@ build/
 .idea
 /out/*
 /.idea/*
-
+src.main.resources.database.properties
 
 
 

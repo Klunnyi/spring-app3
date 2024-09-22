@@ -17,6 +17,7 @@
     <br>
     <label for="email">Enter email</label>
     <input type="email" th:field="*{email}" id="email"/>
+    <!--    если есть ошибка в поле email, то мы вставим сюда текст ошибки для этого поля *{email}-->
     <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email error</div>
     <br>
     <input type="submit" value="Create!"/>

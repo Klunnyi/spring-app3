@@ -1,6 +1,7 @@
-package ua.klunniy.springcourse.dao.jdbc;
+package ua.klunniy.springcourse.dao.impl;
 
 import lombok.Getter;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import ua.klunniy.springcourse.dao.PersonDAO;
 import ua.klunniy.springcourse.models.Person;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @Getter
 @Component
-public class JdbcPersonDAO implements PersonDAO {
+public class PersonDAOJDBC implements PersonDAO {
 
     private static final String URL = "jdbc:postgresql://localhost:5432/first_db";
     private static final String USERNAME = "postgres";
@@ -166,5 +167,10 @@ public class JdbcPersonDAO implements PersonDAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void add100People(List<Person> people) {
+        System.err.println("add100People");
     }
 }

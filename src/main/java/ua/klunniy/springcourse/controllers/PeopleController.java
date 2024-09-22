@@ -20,10 +20,9 @@ import javax.validation.Valid;
 //@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 //@RequiredArgsConstructor
 
-
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/people")
+@RequestMapping("people")
 public class PeopleController {
 
     /* REST описывает то какие URLы и HTTP методы у нас должны быть для взаимодействия с данными
@@ -53,7 +52,7 @@ public class PeopleController {
     }
 
     // show
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public String getOnePeopleThymeleaf(@PathVariable("id") Long id, Model model) {
         model.addAttribute("person", peopleService.getPersonById(id));
         return "people/one";
@@ -70,7 +69,7 @@ public class PeopleController {
 //    }
 //
     // метод будет возвращать html форму для создания нового человека
-    @GetMapping("/new")
+    @GetMapping("new")
     public String newPerson(@ModelAttribute("person") Person person) {
         return "people/new";
     }
@@ -94,13 +93,13 @@ public class PeopleController {
 //        return "redirect:/people";
 //    }
 
-    @GetMapping("/{id}/edit")
+    @GetMapping("{id}/edit")
     public String edit(@PathVariable("id") Long id, Model model) {
         model.addAttribute("person", peopleService.getPersonById(id));
         return "people/edit";
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("{id}")
     public String update(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult,
                          @PathVariable("id") Long id) {
 

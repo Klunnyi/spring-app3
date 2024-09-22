@@ -5,8 +5,8 @@
 //import org.springframework.context.annotation.Configuration;
 //import org.springframework.core.env.Environment;
 //import ua.klunniy.springcourse.dao.PersonDAO;
-//import ua.klunniy.springcourse.dao.jdbc.JdbcPersonDAO;
-//import ua.klunniy.springcourse.dao.jdbcTemplate.JdbcTemplatePersonDAO;
+//import ua.klunniy.springcourse.dao.impl.JdbcPersonDAO;
+//import ua.klunniy.springcourse.dao.impl.JdbcTemplatePersonDAO;
 //
 //@Configuration
 //public class DaoFactory {
