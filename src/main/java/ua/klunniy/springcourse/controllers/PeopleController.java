@@ -127,10 +127,10 @@ public class PeopleController {
         return "redirect:/people";
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ResponseBody
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public String handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
-        return  "people/new";
-    }
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    @ResponseBody
+//    @ExceptionHandler(MethodArgumentNotValidException.class)
+//    public String handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
+//        return  "people/new";
+//    }
 }
