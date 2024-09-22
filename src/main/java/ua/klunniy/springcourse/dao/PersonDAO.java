@@ -11,4 +11,5 @@ public interface PersonDAO {
     void update(Person person);
     void delete(Long id);
     void add100People(List<Person> people);
+    void add100PeopleWithButch(List<Person> people);
 }

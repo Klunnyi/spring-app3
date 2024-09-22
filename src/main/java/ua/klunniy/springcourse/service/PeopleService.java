@@ -50,10 +50,15 @@ public class PeopleService {
         List<Person> people = this.get100People();
         personDAO.add100People(people);
         long end = System.currentTimeMillis();
-        System.out.println("add100People time=" + (end - start));
+        System.out.println("add 100 People: time=" + (end - start));
     }
 
     public void add100PeopleWithButch() {
+        long start = System.currentTimeMillis();
+        List<Person> people = this.get100People();
+        personDAO.add100PeopleWithButch(people);
+        long end = System.currentTimeMillis();
+        System.out.println("add 100 People with butch: time=" + (end - start));
 
     }
 

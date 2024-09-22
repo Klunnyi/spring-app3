@@ -173,4 +173,9 @@ public class PersonDAOJDBC implements PersonDAO {
     public void add100People(List<Person> people) {
         System.err.println("add100People");
     }
+
+    @Override
+    public void add100PeopleWithButch(List<Person> people) {
+        System.err.println("add100PeopleWithButch");
+    }
 }

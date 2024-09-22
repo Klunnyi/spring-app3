@@ -3,6 +3,7 @@ package ua.klunniy.springcourse.dao.impl;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -10,6 +11,8 @@ import ua.klunniy.springcourse.dao.PersonDAO;
 import ua.klunniy.springcourse.models.Person;
 import ua.klunniy.springcourse.models.mapper.PersonMapper;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 @Getter
@@ -46,5 +49,22 @@ public class PersonDaoJDBCTemplate implements PersonDAO {
         for (Person person : people) {
             this.save(person);
         }
+    }
+
+    public void add100PeopleWithButch(List<Person> people) {
+        jdbcTemplate.batchUpdate("INSERT INTO Person (name, age, email) VALUES (?, ?, ?)", new BatchPreparedStatementSetter() {
+
+            @Override
+            public void setValues(PreparedStatement ps, int i) throws SQLException {
+                ps.setString(1, people.get(i).getName());
+                ps.setInt(2, people.get(i).getAge());
+                ps.setString(3, people.get(i).getEmail());
+            }
+
+            @Override
+            public int getBatchSize() {
+                return people.size();
+            }
+        } );
     }
 }
