@@ -2,29 +2,21 @@ package ua.klunniy.springcourse.controllers;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import ua.klunniy.springcourse.models.Person;
 import ua.klunniy.springcourse.service.PeopleService;
+import ua.klunniy.springcourse.utils.PeopleValidator;
 
 import javax.validation.Valid;
-import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 //@RequiredArgsConstructor(onConstructor_ = {@Autowired})
 //@RequiredArgsConstructor
@@ -35,7 +27,6 @@ import java.util.stream.Collectors;
 public class PeopleController {
 
     /* REST описывает то какие URLы и HTTP методы у нас должны быть для взаимодействия с данными
-     *
      *
      *   С GET запросом вот по этому URL мы получим все записи:
      *   GET     /posts               Получаем все записи(READ)
@@ -52,6 +43,7 @@ public class PeopleController {
      * */
 
     private final PeopleService peopleService;
+    private final PeopleValidator peopleValidator;
 
     // index
     @GetMapping()
@@ -84,10 +76,13 @@ public class PeopleController {
     }
 
     // будет принимать пост запрос, будет брать данные из этого пост запроса и
-    // @ModelAttribute создает обьект пустого человека, помещает в него данные из формы и кладет его в модель
+    // @ModelAttribute создает объект пустого человека, помещает в него данные из формы и кладет его в модель
     // MethodArgumentNotValidException
     @PostMapping
     public String create(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult) {
+
+        peopleValidator.validate(person, bindingResult);
+
         if (bindingResult.hasErrors()) {
             return "people/new";
         }
@@ -95,12 +90,6 @@ public class PeopleController {
         peopleService.save(person);
         return "redirect:/people";
     }
-
-//    @PostMapping
-//    public String create(@ModelAttribute("person") @Valid Person person) {
-//        peopleService.save(person);
-//        return "redirect:/people";
-//    }
 
     @GetMapping("{id}/edit")
     public String edit(@PathVariable("id") Long id, Model model) {

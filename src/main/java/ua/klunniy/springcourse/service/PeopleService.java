@@ -7,12 +7,12 @@ import ua.klunniy.springcourse.models.Person;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
-//@RequiredArgsConstructor
 public class PeopleService {
 
-    private final PersonDAO personDAO;
+    private PersonDAO personDAO;
 
     public PeopleService(@Qualifier("personDaoJDBCTemplate") PersonDAO personDAO) {
         this.personDAO = personDAO;
@@ -24,6 +24,10 @@ public class PeopleService {
 
     public Person getPersonById(Long id) {
         return personDAO.show(id);
+    }
+
+    public Optional<Person> getPersonByEmail(String email) {
+        return personDAO.getPersonByEmail(email);
     }
 
     public void save(Person person) {

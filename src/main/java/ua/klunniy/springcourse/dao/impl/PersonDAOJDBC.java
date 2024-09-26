@@ -9,6 +9,7 @@ import ua.klunniy.springcourse.models.Person;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Component
@@ -177,5 +178,10 @@ public class PersonDAOJDBC implements PersonDAO {
     @Override
     public void add100PeopleWithButch(List<Person> people) {
         System.err.println("add100PeopleWithButch");
+    }
+
+    @Override
+    public Optional<Person> getPersonByEmail(String email) {
+        return Optional.empty();
     }
 }

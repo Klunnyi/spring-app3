@@ -14,6 +14,7 @@ import ua.klunniy.springcourse.models.mapper.PersonMapper;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Component
@@ -31,6 +32,10 @@ public class PersonDaoJDBCTemplate implements PersonDAO {
     public Person show(Long id) {
         return jdbcTemplate.query("SELECT * FROM Person WHERE id = ?", new Object[]{id}, new PersonMapper()).stream().findFirst().orElseThrow(IllegalArgumentException::new);
         //return jdbcTemplate.queryForObject("SELECT * FROM Person WHERE id = ?", new Object[]{id}, new PersonMapper());
+    }
+
+    public Optional<Person> getPersonByEmail(String email) {
+        return jdbcTemplate.query("SELECT * FROM Person WHERE email = ?", new Object[]{email}, new PersonMapper()).stream().findFirst();
     }
 
     public void save(Person person) {
